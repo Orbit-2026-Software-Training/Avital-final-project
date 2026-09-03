@@ -1,0 +1,14 @@
+{
+  "roots": [
+    "avitalfinalproject"
+  ],
+  "packages": [
+    {
+      "name": "avitalfinalproject",
+      "version": "0.0.0",
+      "dependencies": [],
+      "devDependencies": []
+    }
+  ],
+  "configVersion": 1
+}
