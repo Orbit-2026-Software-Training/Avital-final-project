@@ -4,9 +4,9 @@ import 'dart:math';
 
 void main() {
   //find the average number in a list
-  double avrg(List numbers) {
-    double totalTemp = 0;
-    double avrgTemp = 0;
+  num avrg(List numbers) {
+    num totalTemp = 0;
+    num avrgTemp = 0;
 
     for (num number in numbers) {
       totalTemp += number;
@@ -21,13 +21,13 @@ void main() {
   String stringJson = file.readAsStringSync();
   List<dynamic> listJson = jsonDecode(stringJson);
 
-  List<double> allTemps = [];
+  List<num> allTemps = [];
 
   //adding all the temperature to a list
   for (Map map in listJson) {
     if (map.containsKey("temperature")) {
       num temp = map["temperature"];
-      allTemps.add(temp);
+      allTemps.add(temp.toDouble());
     }
   }
 
