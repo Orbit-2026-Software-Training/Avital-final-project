@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 void main() {
+
   //find the average number in a list
   num avrg(List numbers) {
     num totalTemp = 0;
@@ -15,10 +16,10 @@ void main() {
   }
 
   //checks how much times the engine temperature was over 25
-  int timesTheEnginRanWell(List numbers) {
+  int timesTheEngineRanWell(List numbers) {
     int numOfGoodTimes = 0;
-    for (double number in numbers) {
-      if (number > 25) {
+    for(double number in numbers) {
+      if(number > 25) {
         numOfGoodTimes++;
       }
     }
@@ -31,10 +32,14 @@ void main() {
   List<dynamic> listJson = jsonDecode(stringJson);
   File secondFile = File('Jokes.json');
   String jokeJson = secondFile.readAsStringSync();
-  Map<String, dynamic> jokesMap = jsonDecode(jokeJson);
+  Map<String, dynamic> jokesMap =jsonDecode(jokeJson);
+
+
 
   List<num> allTemps = [];
   List<num> lengthOfJokes = [];
+  List<num> tempsToSort = allTemps;
+  List<num> sortedAllTemps = [];
 
   //adding all the temperature to a list
   for (Map map in listJson) {
@@ -44,22 +49,31 @@ void main() {
     }
   }
 
+  //split the jokes frome the main JSON and add their length to a list
   List<dynamic> jokesList = jokesMap["jokes"];
-  for (dynamic object in jokesList) {
+  for(dynamic object in jokesList) {
     Map map = object;
-    if (map["type"] == "single") {
+    if(map["type"] == "single") {
       lengthOfJokes.add(map["joke"].length);
     } else {
       lengthOfJokes.add(map["setup"].length + map["delivery"].length);
     }
+  }
+  
+  while(tempsToSort.length > 1) {
+    sortedAllTemps.add(tempsToSort.reduce(min));
+    tempsToSort.remove(tempsToSort.reduce(min));
+    print(tempsToSort.reduce(min));
   }
 
   //prints the answers
   print("Average temperature: ${avrg(allTemps)}");
   print("Highest temperature: ${allTemps.reduce(max)}");
   print("lowest temperature: ${allTemps.reduce(min)}");
-  print("The engine ran well ${timesTheEnginRanWell(allTemps)} times");
+  print("The engine ran well ${timesTheEngineRanWell(allTemps)} times");
   print("Average length of a joke: ${avrg(lengthOfJokes)}");
   print("The highest length of a joke: ${lengthOfJokes.reduce(max)}");
   print("The lowest lenght of a joke: ${lengthOfJokes.reduce(min)}");
+  print(sortedAllTemps);
+
 }
