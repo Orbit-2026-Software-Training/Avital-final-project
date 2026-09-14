@@ -69,11 +69,11 @@ void main() {
   print("The lowest lenght of a joke: ${lengthOfJokes.reduce(min)}");
 
   //sorts all the temperatures from lowest to highest
-  while(allTemps.length > 1) {
+  while(allTemps.isNotEmpty) {
     sortedAllTemps.add(allTemps.reduce(min));
     allTemps.remove(allTemps.reduce(min));
   }
-  
+
   //prints the sorted temperatures
   print(sortedAllTemps);
 }
