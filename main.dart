@@ -5,14 +5,14 @@ import 'dart:math';
 void main() {
 
   //find the average number in a list
-  num avrg(List numbers) {
+  num average(List numbers) {
     num totalTemp = 0;
-    num avrgTemp = 0;
+    num averageTemp = 0;
     for (num number in numbers) {
       totalTemp += number;
     }
-    avrgTemp = totalTemp / numbers.length;
-    return avrgTemp;
+    averageTemp = totalTemp / numbers.length;
+    return averageTemp;
   }
 
   //checks how much times the engine temperature was over 25
@@ -26,21 +26,35 @@ void main() {
     return numOfGoodTimes;
   }
 
-  //decoding the JSON files
+  //finds the error rates of list of numbers
+  num errorRate(List<num> list, String minOrMax) {
+    num avrg = average(list);
+    num minValue = list.reduce(min);
+    num maxvalue = list.reduce(max);
+
+    num minErrorRate = ((minValue - avrg).abs() / avrg) * 100;
+    num maxErrorRate = ((maxvalue - avrg).abs() / avrg) * 100;
+
+    if(minOrMax == "min") {return minErrorRate;}
+    else {return maxErrorRate;}
+
+
+  }
+
+  //decodes the JSON files
   File file = File('readings.json');
   String stringJson = file.readAsStringSync();
   List<dynamic> listJson = jsonDecode(stringJson);
   File secondFile = File('Jokes.json');
   String jokeJson = secondFile.readAsStringSync();
-  Map<String, dynamic> jokesMap =jsonDecode(jokeJson);
-
-
+  Map<String, dynamic> jokesMap = jsonDecode(jokeJson);
 
   List<num> allTemps = [];
   List<num> lengthOfJokes = [];
   List<num> sortedAllTemps = [];
+  List<num> errorRates = [];
 
-  //adding all the temperature to a list
+  //adds all of the temperatures to a list
   for (Map map in listJson) {
     if (map.containsKey("temperature")) {
       num temp = map["temperature"];
@@ -48,7 +62,7 @@ void main() {
     }
   }
 
-  //split the jokes frome the main JSON and add their length to a list
+  //splits the jokes from the main JSON and add their length to a list
   List<dynamic> jokesList = jokesMap["jokes"];
   for(dynamic object in jokesList) {
     Map map = object;
@@ -59,14 +73,33 @@ void main() {
     }
   }
 
+  //adds the error rate to a list, findes from what list the error rate is and if it using the highest or the lowest value of the lists
+  errorRates.add(errorRate(allTemps, "min")); 
+  errorRates.add(errorRate(allTemps, "max"));
+  errorRates.add(errorRate(lengthOfJokes, "min"));
+  errorRates.add(errorRate(lengthOfJokes, "max"));
+  String tempsOrJokes = "";
+  String highestOrLowest = "";
+  if(errorRates.indexOf(errorRates.reduce(max)) == 0 || errorRates.indexOf(errorRates.reduce(max)) == 1) {
+    tempsOrJokes = "temperature";
+  } else {
+    tempsOrJokes = "jokes lengths";
+  }
+  if(errorRates.indexOf(errorRates.reduce(max)) == 0 || errorRates.indexOf(errorRates.reduce(max)) == 2) {
+    highestOrLowest = "lowest";
+  } else {
+    highestOrLowest = "highest";
+  }
+
   //prints the answers
-  print("Average temperature: ${avrg(allTemps)}");
+  print("Average temperature: ${average(allTemps)}");
   print("Highest temperature: ${allTemps.reduce(max)}");
-  print("lowest temperature: ${allTemps.reduce(min)}");
+  print("Lowest temperature: ${allTemps.reduce(min)}");
   print("The engine ran well ${timesTheEngineRanWell(allTemps)} times");
-  print("Average length of a joke: ${avrg(lengthOfJokes)}");
+  print("Average length of a joke: ${average(lengthOfJokes)}");
   print("The highest length of a joke: ${lengthOfJokes.reduce(max)}");
   print("The lowest lenght of a joke: ${lengthOfJokes.reduce(min)}");
+  print("The highest error rate is ${errorRates.reduce(max)} and it's the $highestOrLowest value of the $tempsOrJokes list");
 
   //sorts all the temperatures from lowest to highest
   while(allTemps.isNotEmpty) {
