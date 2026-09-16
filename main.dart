@@ -41,17 +41,18 @@ void main() {
 
   }
 
+  //creates a csv file for the log
   File logFile = File('log.cvs');
   logFile.writeAsStringSync("Timestamp, Log level, Module, Message\n");
 
-  //decodes the JSON files
+  //decodes the JS  ON files
   File file = File('readings.json');
   String stringJson = file.readAsStringSync();
   List<dynamic> listJson = jsonDecode(stringJson);
   File secondFile = File('Jokes.json');
   String jokeJson = secondFile.readAsStringSync();
   Map<String, dynamic> jokesMap = jsonDecode(jokeJson);
-  logFile.writeAsStringSync("${DateTime.now()}, DEBUG, Files, Decoded th JSON files\n", mode: FileMode.append);
+  logFile.writeAsStringSync("${DateTime.now()}, DEBUG, Files, Decoded th JSON filess\n", mode: FileMode.append);
   
 
   List<num> allTemps = [];
@@ -93,7 +94,7 @@ void main() {
     tempsOrJokes = "jokes lengths";
   }
   if(errorRates.indexOf(errorRates.reduce(max)) == 0 || errorRates.indexOf(errorRates.reduce(max)) == 2) {
-    highestOrLowest = "lowest";
+    highestOrLowest = "lowest"; 
   } else {
     highestOrLowest = "highest";
   }
