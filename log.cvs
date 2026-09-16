@@ -1,0 +1,14 @@
+Timestamp, Log level, Module, Message
+2026-09-16 20:25:17.053836, DEBUG, Files, Decoded th JSON files
+2026-09-16 20:25:17.061875, DEBUG, Engine temperatures, Added all the temperatures to a list
+2026-09-16 20:25:17.065171, DEBUG, Jokes, Added all the lengths of the jokes to a list
+2026-09-16 20:25:17.065171, DEBUG, Error rate, Found all the error rates of the engine temperatures and the jokes lengths
+2026-09-16 20:25:17.078909, DEBUG, Engine temperatures, Found the average engine temperature
+2026-09-16 20:25:17.078909, DEBUG, Engine temperatures, Found the highest engine temperature
+2026-09-16 20:25:17.087488, DEBUG, Engine temperatures, Found the lowest engine temperature
+2026-09-16 20:25:17.093503, DEBUG, Engine temperatures, Found how much times the engine ran well
+2026-09-16 20:25:17.099250, DEBUG, Jokes, Found the average joke length
+2026-09-16 20:25:17.099250, DEBUG, Jokes, Found the highest joke length
+2026-09-16 20:25:17.111217, DEBUG, Jokes, Found the lowest joke length
+2026-09-16 20:25:17.116105, DEBUG, Error rate, Found the highest error rate
+2026-09-16 20:25:17.310314, DEBUG, Engine temperatures, Sorted all the engine temperatures form lowest to highest
